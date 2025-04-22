@@ -3,12 +3,11 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script>
-  let lenis;
   window.addEventListener('DOMContentLoaded', () => {
     if (typeof Lenis !== 'undefined') {
-      lenis = new Lenis();
+      const lenisInstance = new Lenis();
       function raf(time) {
-        lenis.raf(time);
+        lenisInstance.raf(time);
         requestAnimationFrame(raf);
       }
       requestAnimationFrame(raf);
