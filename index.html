@@ -1,136 +1,18 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <title>와이낫 서비스</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Lenis + GSAP CDN -->
-  <script src="https://unpkg.com/@studio-freight/lenis@1.0.18/bundled/lenis.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-
-  <style>
-    body, html {
-      margin: 0;
-      padding: 0;
-      font-family: 'Noto Sans KR', sans-serif;
-      background-color: #000;
-      color: #fff;
-      overflow-x: hidden;
-    }
-    section {
-      padding: 10vh 5vw;
-    }
-    .hero {
-      position: relative;
-      height: 100vh;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
-      text-align: center;
-    }
-    .hero img {
-      position: absolute;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      object-fit: cover;
-      transform: scale(1.1);
-      opacity: 0.2;
-    }
-    .hero-title { font-size: 4vw; z-index: 2; }
-    .hero-subtitle span { display: inline-block; opacity: 0; transform: translateY(20px); }
-    .bold { font-weight: bold; color: #00ffcc; }
-    .section-content { display: flex; flex-wrap: wrap; gap: 5vw; justify-content: center; }
-    .section-text, .section-list {
-      flex: 1 1 500px;
-      max-width: 600px;
-    }
-    .section-text { text-align: left; }
-    .features li {
-      list-style: none;
-      position: relative;
-      padding-left: 1.5em;
-      line-height: 2;
-    }
-    .features li::before {
-      content: '✓';
-      position: absolute;
-      left: 0;
-      color: #00ffcc;
-    }
-    .bg-ai {
-      background: url('https://cdn.imweb.me/thumbnail/20250422/637b208d3d33b.png') no-repeat center center/cover;
-    }
-    @media screen and (max-width: 768px) {
-      .hero-title { font-size: 7vw; }
-      .section-content { flex-direction: column; }
-    }
-  </style>
-</head>
-<body>
-
-<!-- 1. Hero Section -->
-<section class="hero" id="hero">
-  <img src="https://cdn.imweb.me/thumbnail/20250408/2ba59cd3af2fa.png" class="hero-bg">
-  <h1 class="hero-title">Global Business Consulting</h1>
-  <div class="hero-subtitle">
-    <p id="line1"></p>
-    <p id="line2"></p>
-  </div>
-</section>
-
-<!-- 2. Section 1 - Consulting -->
-<section class="section">
-  <div class="section-content">
-    <div class="section-text">
-      <h3>전략, 실행, 그리고 확장 – 해외 비즈니스의 모든 단계</h3>
-      <p>
-        우리는 고객의 글로벌 시장 진입을 위한 전략을 기획하고 실행합니다. 국가별 규제와 유통 구조를 반영한 수출 전략부터 현지 파트너십 구축, 인증 대응까지 전 과정을 컨설팅합니다.
-      </p>
-    </div>
-    <div class="section-list features">
-      <ul>
-        <li>국가별 진출 전략 수립 및 실행 지원</li>
-        <li>정부·공공기관 프로젝트 수주 및 운영 컨설팅</li>
-        <li>글로벌 인증, 수출입 프로세스, 파트너 매칭</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
-<!-- 3. Section 2 - AI 콘텐츠 크리에이션 with 배경 -->
-<section class="section bg-ai">
-  <div class="section-content">
-    <div class="section-text">
-      <h3>AI 콘텐츠 크리에이션 – 알고리즘과 감각의 접점</h3>
-      <p>
-        생성형 AI 기술을 활용해 이미지, 영상 콘텐츠를 빠르고 정교하게 제작합니다.  
-        프롬프트 설계부터 결과물 아트디렉팅까지, 브랜드가 원하는 방향성과 스타일을 완성도 있게 구현합니다.
-      </p>
-    </div>
-    <div class="section-list features">
-      <ul>
-        <li>AI 기반 이미지 & 영상 콘텐츠 자동화</li>
-        <li>프롬프트 아트디렉션 서비스</li>
-        <li>하이엔드 브랜드 퀄리티 출력</li>
-      </ul>
-    </div>
-  </div>
-</section>
-
+<!-- Ensure GSAP is loaded before running animation logic -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
 <script>
-  let lenis;
-  window.addEventListener('DOMContentLoaded', () => {
-    lenis = new Lenis();
-    function raf(time) {
-      lenis.raf(time);
+  if (typeof lenis === 'undefined') {
+    let lenis;
+    window.addEventListener('DOMContentLoaded', () => {
+      lenis = new Lenis();
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
       requestAnimationFrame(raf);
-    }
-    requestAnimationFrame(raf);
-  });
+    });
+  }
 
   gsap.registerPlugin(ScrollTrigger);
 
@@ -139,12 +21,12 @@
   line1.forEach(w => {
     const span = document.createElement("span");
     span.innerHTML = w + " ";
-    document.getElementById("line1").appendChild(span);
+    document.getElementById("line1")?.appendChild(span);
   });
   line2.forEach(w => {
     const span = document.createElement("span");
     span.innerHTML = w + " ";
-    document.getElementById("line2").appendChild(span);
+    document.getElementById("line2")?.appendChild(span);
   });
 
   const timeline = gsap.timeline({
@@ -161,7 +43,53 @@
     .to(".hero-subtitle span", { opacity: 1, y: 0, stagger: 0.1 }, 0)
     .to([".hero-title", ".hero-subtitle"], { opacity: 0 }, "+=0.3")
     .to(".hero-bg", { opacity: 1, scale: 1, duration: 1 }, "-=0.3");
-</script>
 
-</body>
-</html>
+  gsap.utils.toArray(".section").forEach(section => {
+    const title = section.querySelector(".section-title");
+    const subtitle = section.querySelector(".section-subtitle");
+    const paragraph = section.querySelector(".section-text p");
+    const items = section.querySelectorAll(".features li");
+
+    if (title) {
+      gsap.from(title, {
+        scrollTrigger: { trigger: section, start: "top 85%" },
+        y: 30, opacity: 0, duration: 1
+      });
+    }
+    if (subtitle) {
+      gsap.from(subtitle, {
+        scrollTrigger: { trigger: subtitle, start: "top 90%" },
+        y: 20, opacity: 0, duration: 1
+      });
+    }
+    if (paragraph) {
+      gsap.from(paragraph, {
+        scrollTrigger: { trigger: paragraph, start: "top 80%" },
+        y: 40, opacity: 0, duration: 1
+      });
+    }
+    if (items.length) {
+      gsap.from(items, {
+        scrollTrigger: { trigger: section, start: "top 75%" },
+        x: -30, opacity: 0, duration: 0.6, stagger: 0.2
+      });
+    }
+
+    if (section.classList.contains("bg-ai")) {
+      gsap.fromTo(section, {
+        backgroundSize: "105%",
+        opacity: 0.2
+      }, {
+        scrollTrigger: {
+          trigger: section,
+          start: "top center",
+          end: "bottom center",
+          scrub: true
+        },
+        backgroundSize: "100%",
+        opacity: 1,
+        ease: "power2.out"
+      });
+    }
+  });
+</script>
