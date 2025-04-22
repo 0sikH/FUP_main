@@ -19,263 +19,149 @@
       color: #fff;
       overflow-x: hidden;
     }
-
+    section {
+      padding: 10vh 5vw;
+    }
     .hero {
       position: relative;
       height: 100vh;
       overflow: hidden;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      gap: 20px;
+      flex-direction: column;
       text-align: center;
-      padding: 0 5vw;
     }
-
     .hero img {
       position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
       object-fit: cover;
       transform: scale(1.1);
       opacity: 0.2;
-      transition: transform 2s ease, opacity 2s ease;
     }
-
-    .hero-title {
-      z-index: 2;
-      font-size: 4vw;
-      font-weight: 700;
-      line-height: 1.2;
-      color: #fff;
-    }
-
-    .hero-subtitle {
-      z-index: 2;
-      font-size: 1.6vw;
-      font-weight: 300;
-      line-height: 1.6;
-    }
-
-    .hero-subtitle span {
-      display: inline-block;
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    .hero-subtitle .bold {
-      font-weight: 600;
-      font-size: 1.8vw;
-    }
-
-    .section {
-      padding: 10vh 5vw;
-      background-color: #000;
-      color: #fff;
-    }
-
-    .section-content {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 5vw;
-    }
-
-    .section-text {
+    .hero-title { font-size: 4vw; z-index: 2; }
+    .hero-subtitle span { display: inline-block; opacity: 0; transform: translateY(20px); }
+    .bold { font-weight: bold; color: #00ffcc; }
+    .section-content { display: flex; flex-wrap: wrap; gap: 5vw; justify-content: center; }
+    .section-text, .section-list {
       flex: 1 1 500px;
       max-width: 600px;
-      text-align: left;
     }
-
-    .section-list {
-      flex: 1 1 400px;
-      max-width: 500px;
-    }
-
-    .section h3 {
-      font-size: 2vw;
-      font-weight: 400;
-      margin-bottom: 2vh;
-      color: #999;
-    }
-
-    .section p {
-      font-size: 1.1vw;
-      line-height: 1.8;
-    }
-
-    .features ul {
-      list-style: none;
-      padding-left: 0;
-    }
-
+    .section-text { text-align: left; }
     .features li {
-      font-size: 1.1vw;
-      line-height: 2;
+      list-style: none;
       position: relative;
       padding-left: 1.5em;
+      line-height: 2;
     }
-
     .features li::before {
-      content: "✓";
+      content: '✓';
       position: absolute;
       left: 0;
       color: #00ffcc;
     }
-
+    .bg-ai {
+      background: url('https://cdn.imweb.me/thumbnail/20250422/637b208d3d33b.png') no-repeat center center/cover;
+    }
     @media screen and (max-width: 768px) {
-      .hero-title {
-        font-size: 7vw;
-      }
-      .hero-subtitle {
-        font-size: 3.5vw;
-      }
-      .hero-subtitle .bold {
-        font-size: 4vw;
-      }
-      .section h3 {
-        font-size: 4.5vw;
-      }
-      .section p, .features li {
-        font-size: 3.5vw;
-      }
-      .section-content {
-        flex-direction: column;
-        align-items: flex-start;
-      }
+      .hero-title { font-size: 7vw; }
+      .section-content { flex-direction: column; }
     }
   </style>
 </head>
 <body>
 
-  <section class="hero" id="hero">
-    <img src="https://cdn.imweb.me/thumbnail/20250408/2ba59cd3af2fa.png" alt="Global consulting visual" class="hero-bg">
-    <h1 class="hero-title">Global Business Consulting</h1>
-    <div class="hero-subtitle">
-      <p id="line1"></p>
-      <p id="line2"></p>
-    </div>
-  </section>
+<!-- 1. Hero Section -->
+<section class="hero" id="hero">
+  <img src="https://cdn.imweb.me/thumbnail/20250408/2ba59cd3af2fa.png" class="hero-bg">
+  <h1 class="hero-title">Global Business Consulting</h1>
+  <div class="hero-subtitle">
+    <p id="line1"></p>
+    <p id="line2"></p>
+  </div>
+</section>
 
-  <section class="section">
-    <div class="section-content">
-      <div class="section-text">
-        <h3>전략, 실행, 그리고 확장 – 해외 비즈니스의 모든 단계</h3>
-        <p>
-          우리는 고객의 글로벌 시장 진입을 위한 전략을 기획하고 실행합니다. 국가별 규제와 유통 구조를 반영한 수출 전략부터 현지 파트너십 구축, 인증 대응까지
-          전 과정에서 전략적 방향성과 실무 역량을 제공합니다. 특히 정부 및 공공기관과의 프로젝트 수행 경험을 바탕으로, 고도화된 컨설팅 체계를 구축하고 있습니다.
-        </p>
-      </div>
-      <div class="section-list features">
-        <ul>
-          <li>국가별 진출 전략 수립 및 실행 지원</li>
-          <li>정부·공공기관 프로젝트 수주 및 운영 컨설팅</li>
-          <li>글로벌 인증, 수출입 프로세스, 파트너 매칭</li>
-        </ul>
-      </div>
+<!-- 2. Section 1 - Consulting -->
+<section class="section">
+  <div class="section-content">
+    <div class="section-text">
+      <h3>전략, 실행, 그리고 확장 – 해외 비즈니스의 모든 단계</h3>
+      <p>
+        우리는 고객의 글로벌 시장 진입을 위한 전략을 기획하고 실행합니다. 국가별 규제와 유통 구조를 반영한 수출 전략부터 현지 파트너십 구축, 인증 대응까지 전 과정을 컨설팅합니다.
+      </p>
     </div>
-  </section>
+    <div class="section-list features">
+      <ul>
+        <li>국가별 진출 전략 수립 및 실행 지원</li>
+        <li>정부·공공기관 프로젝트 수주 및 운영 컨설팅</li>
+        <li>글로벌 인증, 수출입 프로세스, 파트너 매칭</li>
+      </ul>
+    </div>
+  </div>
+</section>
 
-  <script>
-    let lenis;
-    window.addEventListener('DOMContentLoaded', () => {
-      lenis = new Lenis();
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
+<!-- 3. Section 2 - AI 콘텐츠 크리에이션 with 배경 -->
+<section class="section bg-ai">
+  <div class="section-content">
+    <div class="section-text">
+      <h3>AI 콘텐츠 크리에이션 – 알고리즘과 감각의 접점</h3>
+      <p>
+        생성형 AI 기술을 활용해 이미지, 영상 콘텐츠를 빠르고 정교하게 제작합니다.  
+        프롬프트 설계부터 결과물 아트디렉팅까지, 브랜드가 원하는 방향성과 스타일을 완성도 있게 구현합니다.
+      </p>
+    </div>
+    <div class="section-list features">
+      <ul>
+        <li>AI 기반 이미지 & 영상 콘텐츠 자동화</li>
+        <li>프롬프트 아트디렉션 서비스</li>
+        <li>하이엔드 브랜드 퀄리티 출력</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<script>
+  let lenis;
+  window.addEventListener('DOMContentLoaded', () => {
+    lenis = new Lenis();
+    function raf(time) {
+      lenis.raf(time);
       requestAnimationFrame(raf);
-    });
-  </script>
+    }
+    requestAnimationFrame(raf);
+  });
 
-  <script>
-    gsap.registerPlugin(ScrollTrigger);
+  gsap.registerPlugin(ScrollTrigger);
 
-    const line1 = ["전략,", "실행,", "그리고", "확장"];
-    const line2 = ["해외", "비즈니스의", "<span class='bold'>모든</span>", "<span class='bold'>단계</span>"];
-    const line1Container = document.getElementById("line1");
-    const line2Container = document.getElementById("line2");
+  const line1 = ["전략,", "실행,", "그리고", "확장"];
+  const line2 = ["해외", "비즈니스의", "<span class='bold'>모든</span>", "<span class='bold'>단계</span>"];
+  line1.forEach(w => {
+    const span = document.createElement("span");
+    span.innerHTML = w + " ";
+    document.getElementById("line1").appendChild(span);
+  });
+  line2.forEach(w => {
+    const span = document.createElement("span");
+    span.innerHTML = w + " ";
+    document.getElementById("line2").appendChild(span);
+  });
 
-    line1.forEach(word => {
-      const span = document.createElement("span");
-      span.innerHTML = word + " ";
-      line1Container.appendChild(span);
-    });
+  const timeline = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#hero",
+      start: "top top",
+      end: "+=200%",
+      scrub: true,
+      pin: true
+    }
+  });
 
-    line2.forEach(word => {
-      const span = document.createElement("span");
-      span.innerHTML = word + " ";
-      line2Container.appendChild(span);
-    });
-
-    const timeline = gsap.timeline({
-      scrollTrigger: {
-        trigger: "#hero",
-        start: "top top",
-        end: "+=200%",
-        scrub: true,
-        pin: true,
-        anticipatePin: 1
-      }
-    });
-
-    timeline
-      .to(".hero-subtitle span", {
-        opacity: 1,
-        y: 0,
-        stagger: 0.1,
-        ease: "power2.out",
-        duration: 0.5
-      }, 0)
-      .to([".hero-title", ".hero-subtitle"], {
-        opacity: 0,
-        duration: 0.5,
-        ease: "power1.out"
-      }, "+=0.3")
-      .to(".hero-bg", {
-        opacity: 1,
-        scale: 1,
-        duration: 1,
-        ease: "power2.out"
-      }, "-=0.3");
-
-    gsap.from(".section h3", {
-      scrollTrigger: {
-        trigger: ".section",
-        start: "top 80%",
-        toggleActions: "play none none none"
-      },
-      opacity: 0,
-      y: 40,
-      duration: 1
-    });
-
-    gsap.from(".section p", {
-      scrollTrigger: {
-        trigger: ".section",
-        start: "top 70%",
-        toggleActions: "play none none none"
-      },
-      opacity: 0,
-      y: 40,
-      duration: 1
-    });
-
-    gsap.from(".features li", {
-      scrollTrigger: {
-        trigger: ".features",
-        start: "top 75%",
-        toggleActions: "play none none none"
-      },
-      opacity: 0,
-      x: -30,
-      duration: 0.6,
-      stagger: 0.2
-    });
-  </script>
+  timeline
+    .to(".hero-subtitle span", { opacity: 1, y: 0, stagger: 0.1 }, 0)
+    .to([".hero-title", ".hero-subtitle"], { opacity: 0 }, "+=0.3")
+    .to(".hero-bg", { opacity: 1, scale: 1, duration: 1 }, "-=0.3");
+</script>
 
 </body>
 </html>
