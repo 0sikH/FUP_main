@@ -148,19 +148,21 @@
 
   <!-- Lenis Scroll Script -->
   <script>
-    const lenis = new Lenis();
-    function animate(time) {
-      lenis.raf(time);
-      requestAnimationFrame(animate);
-    }
-    requestAnimationFrame(animate);
+    let lenis;
+    window.addEventListener('DOMContentLoaded', () => {
+      lenis = new Lenis();
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+    });
   </script>
 
   <!-- GSAP Animations -->
   <script>
     gsap.registerPlugin(ScrollTrigger);
 
-    // Subtitle text split
     const line1 = ["전략,", "실행,", "그리고", "확장"];
     const line2 = ["해외", "비즈니스의", "<span class='bold'>모든</span>", "<span class='bold'>단계</span>"];
     const line1Container = document.getElementById("line1");
@@ -204,7 +206,6 @@
       }, "+=0.3")
       .to(".hero-bg", { opacity: 1, duration: 1 }, "-=0.3");
 
-    // Content Section Animation
     gsap.from(".section h3", {
       scrollTrigger: {
         trigger: ".section",
