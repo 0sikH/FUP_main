@@ -8,16 +8,6 @@
   padding-top: 2vh;
   padding-bottom: 2vh;      display: flex;      flex-direction: column;      justify-content: center;      padding: 0 10vw;    }    h2, .section-subtitle, .section-text, .section-list li {      opacity: 0;      transform: translateY(60px);      margin: 1vh 0;    }    h2 {      font-size: 2.1vw;      font-weight: 700;    }    .section-subtitle {      font-size: 1.05vw;      font-weight: 300;      margin-bottom: 4vh;    }    .section-text {      font-size: 0.95vw;      font-weight: 300;      line-height: 1.8;      margin-bottom: 4vh;    }    .section-list {      list-style: none;      padding: 0;    }    .section-list li {      font-size: 0.9vw;      margin: 1vh 0;      position: relative;      padding-left: 1.8em;    }    .section-list li::before {      content: '✓';      position: absolute;      left: 0;      color: #00ffcc;      font-size: 1.2vw;    }  
 @media (max-width: 768px) {
-  .hero-summary {
-    padding: 80px 5vw;
-    height: auto;
-  }
-  .hero-summary h1 {
-    font-size: 7vw !important;
-  }
-  .hero-summary p {
-    font-size: 4vw !important;
-  }
   .service-buttons {
     padding: 40px 4vw 20px !important;
   }
@@ -74,12 +64,6 @@
   h2, .section-subtitle {
     font-size: 4.5vw !important;
   }
-  .hero-summary h1 {
-    font-size: 6vw !important;
-  }
-  .hero-summary p {
-    font-size: 3.5vw !important;
-  }
   .section-text {
     font-size: 3vw !important;
   }
@@ -94,12 +78,6 @@
     font-size: 4.5vw !important;
     opacity: 1 !important;
     transform: none !important;
-  }
-  .hero-summary h1 {
-    font-size: 6vw !important;
-  }
-  .hero-summary p {
-    font-size: 3.5vw !important;
   }
   .section-text {
     font-size: 3vw !important;
@@ -157,16 +135,6 @@
 }
 
 @media (max-width: 768px) {
-  .hero-summary {
-    padding: 80px 5vw;
-    height: auto;
-  }
-  .hero-summary h1 {
-    font-size: 7vw !important;
-  }
-  .hero-summary p {
-    font-size: 4vw !important;
-  }
   .service-buttons {
     padding: 40px 4vw 20px !important;
   }
@@ -223,12 +191,6 @@
   h2, .section-subtitle {
     font-size: 4.5vw !important;
   }
-  .hero-summary h1 {
-    font-size: 6vw !important;
-  }
-  .hero-summary p {
-    font-size: 3.5vw !important;
-  }
   .section-text {
     font-size: 3vw !important;
   }
@@ -243,12 +205,6 @@
     font-size: 4.5vw !important;
     opacity: 1 !important;
     transform: none !important;
-  }
-  .hero-summary h1 {
-    font-size: 6vw !important;
-  }
-  .hero-summary p {
-    font-size: 3.5vw !important;
   }
   .section-text {
     font-size: 3vw !important;
@@ -286,25 +242,8 @@ document.querySelectorAll(".button-group button").forEach(button => {
   });
 }</script>
 
-<style>.hero-summary {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-
-  padding-bottom: 40px !important;  background: #000;  color: #fff;  text-align: center;  padding: 120px 5vw 60px;}.hero-summary h1 {  font-size: 2.5vw;  margin-bottom: 1vh;}.hero-summary p {  font-size: 0.95vw;  max-width: 800px;  margin: 0 auto;  line-height: 1.6;  color: #ccc;}@media (max-width: 768px) {  .hero-summary h1 { font-size: 8vw; }  .hero-summary p { font-size: 4vw; }}
+<style>@media (max-width: 768px) {  }
 @media (max-width: 768px) {
-  .hero-summary {
-    padding: 80px 5vw;
-    height: auto;
-  }
-  .hero-summary h1 {
-    font-size: 7vw !important;
-  }
-  .hero-summary p {
-    font-size: 4vw !important;
-  }
   .service-buttons {
     padding: 40px 4vw 20px !important;
   }
@@ -361,12 +300,6 @@ document.querySelectorAll(".button-group button").forEach(button => {
   h2, .section-subtitle {
     font-size: 4.5vw !important;
   }
-  .hero-summary h1 {
-    font-size: 6vw !important;
-  }
-  .hero-summary p {
-    font-size: 3.5vw !important;
-  }
   .section-text {
     font-size: 3vw !important;
   }
@@ -381,12 +314,6 @@ document.querySelectorAll(".button-group button").forEach(button => {
     font-size: 4.5vw !important;
     opacity: 1 !important;
     transform: none !important;
-  }
-  .hero-summary h1 {
-    font-size: 6vw !important;
-  }
-  .hero-summary p {
-    font-size: 3.5vw !important;
   }
   .section-text {
     font-size: 3vw !important;
@@ -433,16 +360,6 @@ document.querySelectorAll(".button-group button").forEach(button => {
 }
 </script><style>.grid-summary {  background: #111;  padding: 80px 5vw;}.grid-container {  display: grid;  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));  gap: 2vw;  text-align: center;}.grid-item {  background: #1a1a1a;  padding: 1em;  border-radius: 12px;  transition: transform 0.3s ease;}.grid-item:hover {  transform: translateY(-4px);}.grid-item img {  width: 100%;  aspect-ratio: 1/1;  object-fit: cover;  border-radius: 8px;  margin-bottom: 1em;}.grid-item h4 {  margin: 0.5em 0 0.3em;  font-size: 1em;}.grid-item p {  font-size: 0.9em;  color: #ccc;  line-height: 1.5;}
 @media (max-width: 768px) {
-  .hero-summary {
-    padding: 80px 5vw;
-    height: auto;
-  }
-  .hero-summary h1 {
-    font-size: 7vw !important;
-  }
-  .hero-summary p {
-    font-size: 4vw !important;
-  }
   .service-buttons {
     padding: 40px 4vw 20px !important;
   }
@@ -499,12 +416,6 @@ document.querySelectorAll(".button-group button").forEach(button => {
   h2, .section-subtitle {
     font-size: 4.5vw !important;
   }
-  .hero-summary h1 {
-    font-size: 6vw !important;
-  }
-  .hero-summary p {
-    font-size: 3.5vw !important;
-  }
   .section-text {
     font-size: 3vw !important;
   }
@@ -519,12 +430,6 @@ document.querySelectorAll(".button-group button").forEach(button => {
     font-size: 4.5vw !important;
     opacity: 1 !important;
     transform: none !important;
-  }
-  .hero-summary h1 {
-    font-size: 6vw !important;
-  }
-  .hero-summary p {
-    font-size: 3.5vw !important;
   }
   .section-text {
     font-size: 3vw !important;
