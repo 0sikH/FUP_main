@@ -4,100 +4,219 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>WhyNot Services Full Page</title>
-  <script src="https://unpkg.com/@studio-freight/lenis"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
   <style>
-    :root { --background: #000; --text-color: #fff; --accent: #fff; --card-bg: #111; --btn-border: #fff; }
-    *, *::before, *::after { box-sizing: border-box; }
-    html, body { margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: var(--background); color: var(--text-color); scroll-behavior: smooth; }
-    section { width: 100%; position: relative; }
+    :root { --bg:#000; --text:#fff; --accent:#fff; --card:#111; }
+    *,*::before,*::after { box-sizing:border-box; }
+    html, body {
+      margin: 0; padding: 0; height: 100%; overflow-y: auto;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      background: var(--bg); color: var(--text);
+      scroll-behavior: smooth;
+    }
+    section {
+      position: relative; width: 100%; height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      overflow: hidden; margin: 0; padding: 0;
+    }
     /* Hero */
-    section.hero { height:100vh; display:flex; flex-direction:column; justify-content:center; align-items:center; background:#000; overflow:hidden; }
-    .hero-particles { position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none; }
-    .particle { position:absolute; width:8px; height:8px; border-radius:50%; background:var(--accent); opacity:0.5; }
-    .hero h1, .hero p { opacity:0; transform:translateY(20px); }
-    .hero h1 { font-size:4rem; font-weight:600; margin:0; }
-    .hero p { font-size:1.25rem; font-weight:300; margin-top:1rem; max-width:600px; text-align:center; }
-    .scroll-indicator { position:absolute; bottom:2rem; width:24px; height:24px; border-left:2px solid var(--text-color); border-bottom:2px solid var(--text-color); transform:rotate(-45deg) translateY(20px); opacity:0; }
+    .hero { flex-direction: column; text-align: center; z-index: 1; }
+    .logo { width: 300px; opacity: 0; margin-bottom: 1.5rem; }
+    .title-wrap { position: relative; display: inline-block; }
+    .title-graphic {
+      position: absolute; top: 50%; left: 50%; width: 400px; height: 4px;
+      transform: translate(-50%, -50%); stroke: var(--accent); stroke-width: 4;
+      opacity: 0.8; animation: orbitLine 20s linear infinite; z-index: 2;
+    }
+    @keyframes orbitLine {
+      0% { transform: translate(-50%, -50%) translate(0, 0) rotate(0deg); }
+      25% { transform: translate(-50%, -50%) translate(calc(100vw + 200px), 0) rotate(90deg); }
+      50% { transform: translate(-50%, -50%) translate(calc(100vw + 200px), calc(100vh + 200px)) rotate(180deg); }
+      75% { transform: translate(-50%, -50%) translate(0, calc(100vh + 200px)) rotate(270deg); }
+      100% { transform: translate(-50%, -50%) translate(0, 0) rotate(360deg); }
+    }
+    .title-graphic .dash, .title-graphic .dash2 {
+      stroke-dasharray: 120; stroke-dashoffset: 120;
+      animation: dashAnim 3s ease-in-out infinite alternate;
+    }
+    @keyframes dashAnim { to { stroke-dashoffset: 0; } }
+    .hero h1 {
+      font-size: 3.5rem; margin: 0; opacity: 0; transform: translateY(20px);
+    }
+    .hero p {
+      font-size: 1rem; margin: .5rem 0 0; max-width: 600px;
+      line-height: 1.5; opacity: 0; transform: translateY(20px);
+      text-align: center;
+    }
+    .scroll-indicator {
+      position: absolute; bottom: 1.5rem; width: 24px; height: 24px;
+      border-left: 2px solid var(--text); border-bottom: 2px solid var(--text);
+      transform: rotate(-45deg) translateY(20px); opacity: 0;
+    }
     /* Card News */
-    section.card-news { padding:4rem 5vw; background:var(--background); }
-    .card-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:2rem; }
-    .card-news-item { background:var(--card-bg); border-radius:16px; overflow:hidden; transition:transform .4s,box-shadow .4s; opacity:0; transform:translateY(20px); }
-    .card-news-item:hover { transform:translateY(-8px); box-shadow:0 20px 40px rgba(255,255,255,0.1); }
-    .card-news-item img { width:100%; display:block; }
-    .card-news-content { padding:1.5rem; }
-    .card-news-item h3 { margin:0 0 .5rem; font-size:1.25rem; font-weight:500; color:var(--accent); }
-    .card-news-item p { margin:0; font-weight:300; line-height:1.4; }
-    /* Buttons */
-    .service-buttons { padding:3rem 5vw; text-align:center; opacity:0; transform:translateY(20px); }
-    .button-group button { background:none; border:2px solid var(--btn-border); border-radius:999px; padding:.75rem 1.5rem; font-size:1rem; font-weight:500; margin:.5rem; transition:background .3s,color .3s; color:var(--text-color); }
-    .button-group button:hover { background:var(--text-color); color:var(--background); }
-    /* Service Sections */
-    section.service { height:85vh; display:flex; align-items:center; justify-content:center; }
-    .service .bg { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; filter:brightness(.5); }
-    .service .inner { position:relative; z-index:1; max-width:720px; padding:0 10vw; color:#fff; }
-    .section-icon { font-size:3rem; position:absolute; top:20%; right:10%; opacity:0; }
-    
-    
-    .service h2 { font-size:2.5rem; font-weight:600; margin-bottom:1rem; }
-    .section-subtitle { font-size:1.25rem; font-weight:300; margin-bottom:1.5rem; }
-    .section-text { font-size:1rem; font-weight:300; line-height:1.6; margin-bottom:2rem; }
-    .section-list { list-style:none; padding:0; margin:0; }
-    .section-list li { font-size:1rem; font-weight:300; margin-bottom:.75rem; padding-left:1.5em; position:relative; }
-    .section-list li::before { content:'•'; position:absolute; left:0; color:var(--accent); font-size:1.2rem; }
-    /* Back To Top */
-    .back-to-top { position:fixed; right:2rem; bottom:2rem; width:3rem; height:3rem; background:rgba(255,255,255,0.2); border:none; border-radius:50%; color:var(--accent); display:flex; align-items:center; justify-content:center; cursor:pointer; opacity:.7; transition:opacity .3s; }
-    .back-to-top:hover { opacity:1; }
-    @media(max-width:768px){ .hero h1 { font-size:8vw; } .hero p { font-size:4vw; } section.card-news { padding:3rem 4vw; } .card-news-item, .service-buttons { opacity:1!important; transform:none!important; } section.service { flex-direction:column; height:auto; padding:4rem 4vw; } .service .inner { color:var(--text-color); } }
+    .card-news { flex-direction: column; padding: 2rem 3vw; z-index: 1; }
+    .card-grid {
+      display: grid; width: 100%; grid-template-columns: repeat(auto-fit, minmax(240px,1fr));
+      gap: 1rem; opacity: 0; transform: scale(0.9);
+    }
+    .card-news-item { background: var(--card); border-radius: 12px; overflow: hidden; }
+    .card-news-item img { width: 100%; display: block; }
+    .card-news-content { padding: 1rem; }
+    .card-news-content h3 { margin: 0 0 .5rem; color: var(--accent); }
+    .card-news-content p { margin: 0; font-weight: 300; line-height: 1.4; }
+    /* Services */
+    .service { flex-direction: column; z-index: 1; }
+    .service .bg {
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+      background-size: cover; background-position: center;
+      filter: brightness(.5); transform: scale(1.2);
+    }
+    .inner { position: relative; z-index: 2; max-width: 720px; padding: 0 5vw; }
+    .section-icon {
+      font-size: 2.5rem; margin-bottom: .5rem;
+      opacity: 0; transform: translateX(50px);
+    }
+    .service h2 {
+      font-size: 2rem; margin: .5rem 0;
+      opacity: 0; transform: translateX(-50px);
+    }
+    .section-subtitle { opacity: 0; transform: translateX(50px); }
+    .section-text { opacity: 0; transform: translateY(50px); margin-bottom: 1rem; }
+    .section-list { list-style: none; padding: 0; margin: 0; }
+    .section-list li {
+      opacity: 0; padding-left: 1em; margin-bottom: .5rem; position: relative;
+    }
+    .section-list li::before { content: '•'; position: absolute; left: 0; color: var(--accent); }
+    .global-particles {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+    }
+    .global-particle {
+      position: absolute; width: 4px; height: 4px; border-radius: 50%;
+      background: rgba(255,255,255,0.15);
+    }
+    .back-to-top {
+      position: fixed; right: 1rem; bottom: 1rem; width: 3rem; height: 3rem;
+      background: rgba(255,255,255,.2); border: none; border-radius: 50%;
+      color: var(--accent); display: flex; align-items: center;
+      justify-content: center; cursor: pointer; z-index: 2;
+    }
+    @media(max-width:768px) {
+      .hero h1 { font-size: 6vw; }
+      .hero p { font-size: 3vw; }
+    }
   </style>
 </head>
 <body>
-  <section class="hero">
-    <div class="hero-particles"></div>
-    <div class="scroll-indicator"></div>
-    <h1>Our Services</h1>
+  <div class="global-particles"></div>
+  <section class="hero" id="hero">
+    <img class="logo" src="https://cdn.imweb.me/thumbnail/20250424/dbf4b88803932.png" alt="Logo">
+    <div class="title-wrap">
+      <svg class="title-graphic" viewBox="0 0 120 120">
+        <line class="dash" x1="0" y1="60" x2="120" y2="60" />
+        <line class="dash2" x1="60" y1="0" x2="60" y2="120" />
+      </svg>
+      <h1>Our Services</h1>
+    </div>
     <p>우리는 전략과 크리에이브를 결합한 글로벌 브랜드 솔루션을 제공합니다.<br>기술, 감각, 실행력 세 가지를 중심으로 고객의 브랜드 성장을 이끌어갑니다.</p>
+    <div class="scroll-indicator"></div>
   </section>
-
   <section class="card-news">
     <div class="card-grid">
-      <div class="card-news-item"><img src="https://cdn.imweb.me/thumbnail/20250408/2ba59cd3af2fa.png"><div class="card-news-content"><h3>Global Business Consulting</h3><p>전략 기획부터 실행, 공공기관 프로젝트 경험 기반 컨설팅</p></div></div>
-      <div class="card-news-item"><img src="https://cdn.imweb.me/thumbnail/20250422/637b208d3d33b.png"><div class="card-news-content"><h3>AI 콘텐츠 크리에이션</h3><p>브랜드 톤 맞춘 AI 이미지·영상 자동 생성</p></div></div>
-      <div class="card-news-item"><img src="https://cdn.imweb.me/thumbnail/20250422/a2d255d58bda3.png"><div class="card-news-content"><h3>브랜드 운영 & 유통 전략</h3><p>이커머스 셋업, D2C 시스템 구축, 풀필먼트 연동</p></div></div>
-      <div class="card-news-item"><img src="https://cdn.imweb.me/thumbnail/20250422/76e97478b40b5.png"><div class="card-news-content"><h3>글로벌 마케팅 전략</h3><p>데이터 기반 타겟팅과 현지화 마케팅 캠페인 진행</p></div></div>
+      <div class="card-news-item"><img src="https://cdn.imweb.me/thumbnail/20250408/2ba59cd3af2fa.png"><div class="card-news-content"><h3>Global Business Consulting</h3><p>전략 수립부터 실행, 공공기관 프로젝트 컨설팅</p></div></div>
+      <div class="card-news-item"><img src="https://cdn.imweb.me/thumbnail/20250422/637b208d3d33b.png"><div class="card-news-content"><h3>AI 콘텐츠 크리에이션</h3><p>AI 기반 자동 이미지·영상 제작</p></div></div>
+      <div class="card-news-item"><img src="https://cdn.imweb.me/thumbnail/20250422/a2d255d58bda3.png"><div class="card-news-content"><h3>Operations</h3><p>이커머스 & D2C 시스템 구축</p></div></div>
+      <div class="card-news-item"><img src="https://cdn.imweb.me/thumbnail/20250422/76e97478b40b5.png"><div class="card-news-content"><h3>Global Marketing</h3><p>현지화된 마케팅 캠페인 실행</p></div></div>
     </div>
   </section>
-
-  <div class="service-buttons"><div class="button-group"><button data-scrollto="sec1">Consulting</button><button data-scrollto="sec2">AI 콘텐츠</button><button data-scrollto="sec3">운영 & 유통</button><button data-scrollto="sec4">마케팅 전략</button></div></div>
-
-  <section class="service" id="sec1"><img class="bg" src="https://cdn.imweb.me/thumbnail/20250408/2ba59cd3af2fa.png"><div class="inner"><div class="section-icon">🔹</div><h2>Global Business Consulting</h2><p class="section-subtitle">전략, 실행, 그리고 확장</p><p class="section-text">국가별 진출 전략 수립과 공공기관 프로젝트 컨설팅으로 고객의 글로벌 도전을 지원합니다.</p><ul class="section-list"><li>국가별 진출 전략</li><li>공공기관 컨설팅</li><li>글로벌 인증 대응</li></ul></div></section>
-  <section class="service" id="sec2"><img class="bg" src="https://cdn.imweb.me/thumbnail/20250422/637b208d3d33b.png"><div class="inner"><div class="section-icon">💡</div><h2>AI 콘텐츠 크리에이션</h2><p class="section-subtitle">감각과 알고리즘의 결합</p><p class="section-text">프롬프트 설계와 생성형 AI로 브랜드에 최적화된 이미지·영상을 제작합니다.</p><ul class="section-list"><li>AI 이미지 생성</li><li>프롬프트 설계</li><li>퀄리티 유지</li></ul></div></section>
-  <section class="service" id="sec3"><img class="bg" src="https://cdn.imweb.me/thumbnail/20250422/a2d255d58bda3.png"><div class="inner"><div class="section-icon">⚙️</div><h2>브랜드 운영 & 유통 전략</h2><p class="section-subtitle">시스템 기반 효율화</p><p class="section-text">이커머스 구축에서 풀필먼트 연동까지, 통합 운영 솔루션을 제공합니다.</p><ul class="section-list"><li>이커머스 셋업</li><li>D2C 시스템</li><li>풀필먼트 연동</li></ul></div></section>
-  <section class="service" id="sec4"><img class="bg" src="https://cdn.imweb.me/thumbnail/20250422/76e97478b40b5.png"><div class="inner"><div class="section-icon">🚀</div><h2>글로벌 마케팅 전략</h2><p class="section-subtitle">데이터 기반 현지화</p><p class="section-text">시장 분석과 로컬라이즈 콘텐츠로 글로벌 캠페인을 성공으로 이끕니다.</p><ul class="section-list"><li>시장 타겟 분석</li><li>콘텐츠 로컬라이즈</li><li>캠페인 실행</li></ul></div></section>
-
+  <section class="service" id="sec1">
+    <div class="bg" style="background-image:url('https://cdn.imweb.me/thumbnail/20250408/2ba59cd3af2fa.png')"></div>
+    <div class="inner">
+      <div class="section-icon">🔹</div><h2>Global Business Consulting</h2>
+      <p class="section-subtitle">전략, 실행, 확장</p>
+      <p class="section-text">시장 분석과 전략 수립으로 글로벌 진출을 지원합니다.</p>
+      <ul class="section-list">
+        <li>시장 분석 & 전략 수립</li>
+        <li>공공기관 프로젝트 컨설팅</li>
+        <li>인증 & 규제 대응</li>
+      </ul>
+    </div>
+  </section>
+  <section class="service" id="sec2">
+    <div class="bg" style="background-image:url('https://cdn.imweb.me/thumbnail/20250422/637b208d3d33b.png')"></div>
+    <div class="inner">
+      <div class="section-icon">💡</div><h2>AI 콘텐츠 크리에이션</h2>
+      <p class="section-subtitle">감각과 알고리즘 결합</p>
+      <p class="section-text">AI로 브랜드 최적화된 이미지·영상을 자동 생성합니다.</p>
+      <ul class="section-list">
+        <li>AI 이미지/영상 자동 생성</li>
+        <li>프롬프트 설계</li>
+        <li>브랜드 퀄리티 보장</li>
+      </ul>
+    </div>
+  </section>
+  <section class="service" id="sec3">
+    <div class="bg" style="background-image:url('https://cdn.imweb.me/thumbnail/20250422/a2d255d58bda3.png')"></div>
+    <div class="inner">
+      <div class="section-icon">⚙️</div><h2>운영 & 유통 전략</h2>
+      <p class="section-subtitle">통합 운영 솔루션</p>
+      <p class="section-text">이커머스 구축부터 풀필먼트 연동까지 지원합니다.</p>
+      <ul class="section-list">
+        <li>이커머스 셋업</li>
+        <li>D2C 시스템 구축</li>
+        <li>풀필먼트 연동</li>
+      </ul>
+    </div>
+  </section>
+  <section class="service" id="sec4">
+    <div class="bg" style="background-image:url('https://cdn.imweb.me/thumbnail/20250422/76e97478b40b5.png')"></div>
+    <div class="inner">
+      <div class="section-icon">🚀</div><h2>글로벌 마케팅 전략</h2>
+      <p class="section-subtitle">데이터 기반 현지화</p>
+      <p class="section-text">시장 타겟 분석과 캠페인 실행을 완성합니다.</p>
+      <ul class="section-list">
+        <li>시장 & 타겟 분석</li>
+        <li>콘텐츠 로컬라이즈</li>
+        <li>캠페인 실행 지원</li>
+      </ul>
+    </div>
+  </section>
   <button class="back-to-top" id="backToTop">↑</button>
-
   <script>
-    const lenis=new Lenis();function raf(t){lenis.raf(t);requestAnimationFrame(raf);}requestAnimationFrame(raf);
-    gsap.registerPlugin(ScrollTrigger);
-    // Simplified bounce particles
-    const container=document.querySelector('.hero-particles');for(let i=0;i<10;i++){const p=document.createElement('div');p.classList.add('particle');container.append(p);gsap.set(p,{x:gsap.utils.random(0,window.innerWidth),y:gsap.utils.random(0,window.innerHeight)});gsap.to(p,{y:'+=50',duration:gsap.utils.random(1,1.5),ease:'bounce.out',repeat:-1,yoyo:true,delay:gsap.utils.random(0,1)});}    
-    // Animate hero text on load
-    gsap.to('section.hero h1',{opacity:1,y:0,duration:1,delay:0.5});
-    gsap.to('section.hero p',{opacity:1,y:0,duration:1,delay:0.8});
-    gsap.to('.scroll-indicator',{opacity:1,transform:'rotate(-45deg) translateY(0)',duration:1,delay:1.2});
-    
-    // Card-news reveal
-    document.querySelectorAll('.card-news-item').forEach((el,i)=> ScrollTrigger.create({trigger:el,start:'top 85%',onEnter:()=> gsap.to(el,{opacity:1,y:0,duration:0.8,delay:i*0.2})}));
-    // Buttons reveal
-    ScrollTrigger.create({trigger:'.service-buttons',start:'top 85%',onEnter:()=> gsap.to('.service-buttons',{opacity:1,y:0,duration:0.8})});
-    // Service sections with icon and text fly-in
-    document.querySelectorAll('section.service').forEach(sec=>{const icon=sec.querySelector('.section-icon');const tl=gsap.timeline();tl.from(icon,{x:50,opacity:0,duration:0.6,ease:'back.out(2)'}).from(sec.querySelector('h2'),{x:-50,opacity:0,duration:0.6},'-=0.4').from(sec.querySelector('.section-subtitle'),{x:50,opacity:0,duration:0.6},'-=0.4').from(sec.querySelector('.section-text'),{y:50,opacity:0,duration:0.6},'-=0.4').from(sec.querySelectorAll('.section-list li'),{scale:0.8,opacity:0,stagger:0.2,duration:0.4},'-=0.4');ScrollTrigger.create({trigger:sec,start:'top top',end:'+=100%',scrub:true,pin:true,animation:tl});});
-    // Back to top
-    document.getElementById('backToTop').addEventListener('click',()=>window.scrollTo({top:0,behavior:'smooth'}));
-    // Nav buttons
-    document.querySelectorAll('.button-group button').forEach(btn=>btn.addEventListener('click',()=>document.getElementById(btn.dataset.scrollto).scrollIntoView({behavior:'smooth'})));
+    document.addEventListener('DOMContentLoaded', () => {
+      // Global particles
+      const gContainer = document.querySelector('.global-particles');
+      for (let i = 0; i < 80; i++) {
+        const dot = document.createElement('div'); dot.classList.add('global-particle');
+        gContainer.append(dot);
+        gsap.set(dot, { x: gsap.utils.random(0, window.innerWidth), y: gsap.utils.random(0, window.innerHeight) });
+        gsap.to(dot, { x: gsap.utils.random(-100, window.innerWidth + 100), y: gsap.utils.random(-100, window.innerHeight + 100), duration: gsap.utils.random(20, 40), ease: 'sine.inOut', repeat: -1, yoyo: true });
+      }
+      gsap.registerPlugin(ScrollTrigger);
+      // Title line dash animations
+      gsap.to('.title-graphic .dash', { strokeDashoffset: 0, duration: 3, ease: 'power1.inOut', repeat: -1, yoyo: true });
+      gsap.to('.title-graphic .dash2', { strokeDashoffset: 0, duration: 3, ease: 'power1.inOut', repeat: -1, yoyo: true, delay: 1 });
+      gsap.to('.title-graphic', { rotation: 360, repeat: -1, duration: 20, ease: 'linear' });
+      // Logo & text reveal
+      gsap.fromTo('.logo', { opacity: 0, y: -20 }, { opacity: 1, y: 0, duration: 1, ease: 'power2.out', delay: 0.3 });
+      gsap.fromTo('.hero h1', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 1 });
+      gsap.fromTo('.hero p', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', delay: 1.3 });
+      gsap.to('.scroll-indicator', { opacity: 1, y: 0, duration: 0.8, delay: 1.6 });
+      gsap.to('.card-grid', { opacity: 1, scale: 1, duration: 0.8, ease: 'power2.out', delay: 1.9 });
+      // Section animations
+      document.querySelectorAll('section.service').forEach(sec => {
+        gsap.to(sec.querySelector('.bg'), { scale: 1, ease: 'sine.out', scrollTrigger: { trigger: sec, start: 'top bottom', end: 'bottom top', scrub: true } });
+        let tl = gsap.timeline({ scrollTrigger: { trigger: sec, start: 'top 80%', toggleActions: 'play none none reverse' } });
+        tl.to(sec.querySelector('.section-icon'), { opacity: 1, x: 0, duration: 0.6, ease: 'back.out(1.7)' })
+          .to(sec.querySelector('h2'), { opacity: 1, x: 0, duration: 0.6, ease: 'power2.out' }, '-=0.4')
+          .to(sec.querySelector('.section-subtitle'), { opacity: 1, x: 0, duration: 0.6, ease: 'power2.out' }, '-=0.4')
+          .to(sec.querySelector('.section-text'), { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out' }, '-=0.4')
+          .to(sec.querySelectorAll('.section-list li'), { opacity: 1, scale: 1, stagger: 0.2, duration: 0.4, ease: 'power2.out' }, '-=0.4');
+      });
+      // Back to top
+      document.getElementById('backToTop').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    });
   </script>
 </body>
 </html>
