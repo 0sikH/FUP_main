@@ -105,6 +105,16 @@
     @media(max-width:768px) {
       .hero h1 { font-size: 6vw; }
       .hero p { font-size: 3vw; }
+      /* Mobile: show service content */
+      section { height: auto; min-height: 100vh; }
+      .service .bg { position: relative; height: 50vh; background-attachment: scroll; transform: none; }
+      .section-icon, .service h2, .section-subtitle, .section-text, .section-list li {
+        opacity: 1 !important;
+        transform: none !important;
+      }
+      .inner { padding: 2rem 5vw !important; }
+    }
+      .hero p { font-size: 3vw; }
     }
   </style>
 </head>
